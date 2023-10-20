@@ -20,17 +20,19 @@ int main()
 {
 	cout << "Hello circles" << endl;
 
-	int r = 20;
 
 	srand(time(0));
 	int circleData[100][8];
 	for (int i = 0; i < 100; i++)
 	{
-		//Position
-		circleData[i][0] = rand() % (gScreenWidth - (r * 2));
-		circleData[i][1] = rand() % (gScreenHeight - (r * 2));
+		//Radius. 
+		circleData[i][7] = rand() % 30 + 11;
 
-		//Speed control;
+		//Position.
+		circleData[i][0] = rand() % (gScreenWidth - (circleData[i][7] * 2));
+		circleData[i][1] = rand() % (gScreenHeight - (circleData[i][7] * 2));
+
+		//Speed control.
 		circleData[i][2] = rand() % 10 + 1;
 		circleData[i][3] = rand() % 10 + 1;
 
@@ -39,13 +41,7 @@ int main()
 		circleData[i][5] = rand() % 256;
 		circleData[i][6] = rand() % 256;
 		
-		//Radius
-		circleData[i][7] = rand() % 30 + 11;
 	}
-
-
-	circleData[0][0] = rand() % (gScreenWidth - (r * 2));
-	circleData[0][1] = rand() % (gScreenHeight - (r * 2));
 
 	srand(time(0));
 	while(UpdateFramework())
@@ -59,12 +55,12 @@ int main()
 			circleData[i][0] += circleData[i][2];
 			circleData[i][1] += circleData[i][3];
 
-			if (circleData[i][0] > gScreenWidth - (r * 2) || circleData[i][0] < 0)
+			if (circleData[i][0] > gScreenWidth - (circleData[i][7] * 2) || circleData[i][0] < 0)
 			{
 				circleData[i][2] = -circleData[i][2];
 			}
 
-			if (circleData[i][1] > gScreenHeight - (r * 2) || circleData[i][1] < 0)
+			if (circleData[i][1] > gScreenHeight - (circleData[i][7] * 2) || circleData[i][1] < 0)
 			{
 				circleData[i][3] = -circleData[i][3];
 			}
