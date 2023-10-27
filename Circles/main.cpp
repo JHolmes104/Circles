@@ -31,8 +31,10 @@ int main()
 		int blue;
 		int green;
 		int radius;
+		int circleNum;
 	};
 
+	int currentCircleNum = 0;
 	srand(time(0));
 	vector<Circles> circleData;
 	for (int i = 0; i < 50; i++)
@@ -52,6 +54,10 @@ int main()
 		tempCircle.red = rand() % 256;
 		tempCircle.blue = rand() % 256;
 		tempCircle.green = rand() % 256;
+
+		tempCircle.circleNum = currentCircleNum;
+		currentCircleNum++;
+
 		circleData.push_back(tempCircle);
 	}
 	srand(time(0));
@@ -83,6 +89,28 @@ int main()
 			{
 				circle.xDir = -circle.xDir;
 				circle.yDir = -circle.yDir;
+			}
+
+			for (Circles& circle2 : circleData)
+			{
+				if (circle2.circleNum != circle.circleNum)
+				{
+					int totalRad = circle2.radius + circle.radius;
+					int xDif = circle2.xPos - circle.xPos;
+					int yDif = circle2.yPos - circle.yPos;
+
+					if (totalRad > xDif)
+					{
+						circle.xDir = -circle.xDir;
+						circle2.xDir = -circle2.xDir;
+					}
+
+					if (totalRad > yDif)
+					{
+						circle.yDir = -circle.yDir;
+						circle2.yDir = -circle2.yDir;
+					}
+				}
 			}
 		}
 	}
