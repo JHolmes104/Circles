@@ -20,26 +20,37 @@ int main()
 {
 	cout << "Hello circles" << endl;
 
+	struct Circles
+	{
+		int xPos;
+		int yPos;
+		int xDir;
+		int yDir;
+		int red;
+		int blue;
+		int green;
+		int radius;
+	};
 
 	srand(time(0));
-	int circleData[100][8];
-	for (int i = 0; i < 100; i++)
+	Circles circleData[50];
+	for (int i = 0; i < 50; i++)
 	{
-		//Radius. 
-		circleData[i][7] = rand() % 30 + 11;
-
+		//Radius.
+		//circleData[i].radius = 30;
+		circleData[i].radius = rand() % 30 + 11;
 		//Position.
-		circleData[i][0] = rand() % (gScreenWidth - (circleData[i][7] * 2));
-		circleData[i][1] = rand() % (gScreenHeight - (circleData[i][7] * 2));
+		circleData[i].xPos = rand() % (gScreenWidth - (circleData[i].radius * 2));
+		circleData[i].yPos = rand() % (gScreenHeight - (circleData[i].radius * 2));
 
 		//Speed control.
-		circleData[i][2] = rand() % 10 + 1;
-		circleData[i][3] = rand() % 10 + 1;
+		circleData[i].xDir = rand() % 7 + 1;
+		circleData[i].yDir = rand() % 7 + 1;
 
 		//Colour values.
-		circleData[i][4] = rand() % 256;
-		circleData[i][5] = rand() % 256;
-		circleData[i][6] = rand() % 256;
+		circleData[i].red = rand() % 256;
+		circleData[i].blue = rand() % 256;
+		circleData[i].green = rand() % 256;
 		
 	}
 
@@ -47,22 +58,22 @@ int main()
 	while(UpdateFramework())
 	{
 		srand(time(0));
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 50; i++)
 		{
 			// Draws a circle at 100,200 with radius 20
-			DrawCircle(circleData[i][0], circleData[i][1], circleData[i][7]);
-			ChangeColour(circleData[i][4], circleData[i][5], circleData[i][6], 255);
-			circleData[i][0] += circleData[i][2];
-			circleData[i][1] += circleData[i][3];
+			DrawCircle(circleData[i].xPos, circleData[i].yPos, circleData[i].radius);
+			ChangeColour(circleData[i].red, circleData[i].blue, circleData[i].green, 255);
+			circleData[i].xPos += circleData[i].xDir;
+			circleData[i].yPos += circleData[i].yDir;
 
-			if (circleData[i][0] > gScreenWidth - (circleData[i][7] * 2) || circleData[i][0] < 0)
+			if (circleData[i].xPos > gScreenWidth - (circleData[i].radius * 2) || circleData[i].xPos < 0)
 			{
-				circleData[i][2] = -circleData[i][2];
+				circleData[i].xDir = -circleData[i].xDir;
 			}
 
-			if (circleData[i][1] > gScreenHeight - (circleData[i][7] * 2) || circleData[i][1] < 0)
+			if (circleData[i].yPos > gScreenHeight - (circleData[i].radius * 2) || circleData[i].yPos < 0)
 			{
-				circleData[i][3] = -circleData[i][3];
+				circleData[i].yDir = -circleData[i].yDir;
 			}
 
 			srand(time(0));
@@ -70,8 +81,8 @@ int main()
 
 			if (changeDirChance == 0)
 			{
-				circleData[i][2] = -circleData[i][2];
-				circleData[i][3] = -circleData[i][3];
+				circleData[i].xDir = -circleData[i].xDir;
+				circleData[i].yDir = -circleData[i].yDir;
 			}
 		}
 	}
