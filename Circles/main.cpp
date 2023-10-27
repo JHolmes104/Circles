@@ -25,65 +25,62 @@ int main()
 	{
 		int xPos;
 		int yPos;
-		int xDir;
-		int yDir;
 		int red;
 		int blue;
 		int green;
 		int radius;
 	};
 
-	srand(time(0));
 	vector<Circles> circleData;
-	for (int i = 0; i < 50; i++)
-	{
-		Circles tempCircle;
-		//Radius.
-		tempCircle.radius = rand() % 30 + 11;
-		//Position.
-		tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
-		tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
+	Circles tempCircle;
 
-		//Speed control.
-		tempCircle.xDir = rand() % 7 + 1;
-		tempCircle.yDir = rand() % 7 + 1;
+	//Radius.
+	tempCircle.radius = rand() % 30 + 11;
 
-		//Colour values.
-		tempCircle.red = rand() % 256;
-		tempCircle.blue = rand() % 256;
-		tempCircle.green = rand() % 256;
-		circleData.push_back(tempCircle);
-	}
+	//Position.
+	tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
+	tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
+
+	//Colour values.
+	tempCircle.red = rand() % 256;
+	tempCircle.blue = rand() % 256;
+	tempCircle.green = rand() % 256;
+	circleData.push_back(tempCircle);
+
 	srand(time(0));
 	while(UpdateFramework())
 	{
 		srand(time(0));
-		for (Circles &circle: circleData)
+		if (IsButtonPressed(EButton::eLeft))
+		{
+			if (IsButtonPressed(EButton::eRight))
+			{
+				tempCircle.radius = rand() % 30 + 11;
+
+				GetMousePosition(tempCircle.xPos, tempCircle.yPos);
+
+				//Colour values.
+				tempCircle.red = rand() % 256;
+				tempCircle.blue = rand() % 256;
+				tempCircle.green = rand() % 256;
+				circleData.push_back(tempCircle);
+			}
+			else
+			{
+				GetMousePosition(circleData[0].xPos, circleData[0].yPos);
+			}
+
+
+			// Draws a circle at 100,200 with radius 20
+			DrawCircle(circleData[0].xPos, circleData[0].yPos, circleData[0].radius);
+			ChangeColour(circleData[0].red, circleData[0].blue, circleData[0].green, 255);
+		}
+
+		for (Circles& circle : circleData)
 		{
 			// Draws a circle at 100,200 with radius 20
 			DrawCircle(circle.xPos, circle.yPos, circle.radius);
 			ChangeColour(circle.red, circle.blue, circle.green, 255);
-			circle.xPos += circle.xDir;
-			circle.yPos += circle.yDir;
-
-			if (circle.xPos > gScreenWidth - (circle.radius * 2) || circle.xPos < 0)
-			{
-				circle.xDir = -circle.xDir;
-			}
-
-			if (circle.yPos > gScreenHeight - (circle.radius * 2) || circle.yPos < 0)
-			{
-				circle.yDir = -circle.yDir;
-			}
-
-			srand(time(0));
-			int changeDirChance = rand() % 100;
-
-			if (changeDirChance == 0)
-			{
-				circle.xDir = -circle.xDir;
-				circle.yDir = -circle.yDir;
-			}
 		}
 	}
 
