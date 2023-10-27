@@ -39,7 +39,6 @@ int main()
 	{
 		Circles tempCircle;
 		//Radius.
-		//circleData[i].radius = 30;
 		tempCircle.radius = rand() % 30 + 11;
 		//Position.
 		tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
@@ -53,10 +52,8 @@ int main()
 		tempCircle.red = rand() % 256;
 		tempCircle.blue = rand() % 256;
 		tempCircle.green = rand() % 256;
-		
 		circleData.push_back(tempCircle);
 	}
-
 	srand(time(0));
 	while(UpdateFramework())
 	{
