@@ -95,20 +95,34 @@ int main()
 			{
 				if (circle2.circleNum != circle.circleNum)
 				{
-					int totalRad = circle2.radius + circle.radius;
+					int largerRadius;
+					if (circle.radius >= circle2.radius)
+					{
+						largerRadius = circle.radius;
+					}
+					else
+					{
+						largerRadius = circle2.radius;
+					}
+
 					int xDif = circle2.xPos - circle.xPos;
 					int yDif = circle2.yPos - circle.yPos;
 
-					if (totalRad > xDif)
-					{
-						circle.xDir = -circle.xDir;
-						circle2.xDir = -circle2.xDir;
-					}
+					double totalDif = sqrt((xDif * xDif) + (yDif * yDif));
 
-					if (totalRad > yDif)
+					if (largerRadius > totalDif)
 					{
-						circle.yDir = -circle.yDir;
-						circle2.yDir = -circle2.yDir;
+						if (largerRadius > xDif)
+						{
+							circle.xDir = -circle.xDir;
+							circle2.xDir = -circle2.xDir;
+						}
+
+						if (largerRadius > yDif)
+						{
+							circle.yDir = -circle.yDir;
+							circle2.yDir = -circle2.yDir;
+						}
 					}
 				}
 			}
