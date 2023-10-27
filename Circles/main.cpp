@@ -2,6 +2,7 @@
     Start shape drawing file
 */
 
+#include <SFML/System/Clock.hpp>
 #include <iostream>
 #include "Framework.h"
 #include <vector>
@@ -41,12 +42,18 @@ int main()
 	tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
 	tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
 
+
+
 	//Colour values.
 	tempCircle.red = rand() % 256;
 	tempCircle.blue = rand() % 256;
 	tempCircle.green = rand() % 256;
 	circleData.push_back(tempCircle);
 
+
+	sf::Clock clock;
+
+	sf::Time timeLastCircleWasPlaced = sf::seconds(0.0f);
 	srand(time(0));
 	while(UpdateFramework())
 	{
@@ -55,15 +62,22 @@ int main()
 		{
 			if (IsButtonPressed(EButton::eRight))
 			{
-				tempCircle.radius = rand() % 30 + 11;
+				sf::Time currentTime = clock.getElapsedTime();
+				float timeDif = (currentTime - timeLastCircleWasPlaced).asSeconds();
+				if (timeDif >= 0.3f)
+				{
+					tempCircle.radius = rand() % 30 + 11;
 
-				GetMousePosition(tempCircle.xPos, tempCircle.yPos);
+					GetMousePosition(tempCircle.xPos, tempCircle.yPos);
 
-				//Colour values.
-				tempCircle.red = rand() % 256;
-				tempCircle.blue = rand() % 256;
-				tempCircle.green = rand() % 256;
-				circleData.push_back(tempCircle);
+					//Colour values.
+					tempCircle.red = rand() % 256;
+					tempCircle.blue = rand() % 256;
+					tempCircle.green = rand() % 256;
+					circleData.push_back(tempCircle);
+
+					timeLastCircleWasPlaced = currentTime;
+				}
 			}
 			else
 			{
