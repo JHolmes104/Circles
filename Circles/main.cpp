@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Framework.h"
+#include <vector>
 
 // Variables with global scope - do not rename them, feel free to change values though
 
@@ -33,47 +34,49 @@ int main()
 	};
 
 	srand(time(0));
-	Circles circleData[50];
+	vector<Circles> circleData;
 	for (int i = 0; i < 50; i++)
 	{
+		Circles tempCircle;
 		//Radius.
 		//circleData[i].radius = 30;
-		circleData[i].radius = rand() % 30 + 11;
+		tempCircle.radius = rand() % 30 + 11;
 		//Position.
-		circleData[i].xPos = rand() % (gScreenWidth - (circleData[i].radius * 2));
-		circleData[i].yPos = rand() % (gScreenHeight - (circleData[i].radius * 2));
+		tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
+		tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
 
 		//Speed control.
-		circleData[i].xDir = rand() % 7 + 1;
-		circleData[i].yDir = rand() % 7 + 1;
+		tempCircle.xDir = rand() % 7 + 1;
+		tempCircle.yDir = rand() % 7 + 1;
 
 		//Colour values.
-		circleData[i].red = rand() % 256;
-		circleData[i].blue = rand() % 256;
-		circleData[i].green = rand() % 256;
+		tempCircle.red = rand() % 256;
+		tempCircle.blue = rand() % 256;
+		tempCircle.green = rand() % 256;
 		
+		circleData.push_back(tempCircle);
 	}
 
 	srand(time(0));
 	while(UpdateFramework())
 	{
 		srand(time(0));
-		for (int i = 0; i < 50; i++)
+		for (Circles &circle: circleData)
 		{
 			// Draws a circle at 100,200 with radius 20
-			DrawCircle(circleData[i].xPos, circleData[i].yPos, circleData[i].radius);
-			ChangeColour(circleData[i].red, circleData[i].blue, circleData[i].green, 255);
-			circleData[i].xPos += circleData[i].xDir;
-			circleData[i].yPos += circleData[i].yDir;
+			DrawCircle(circle.xPos, circle.yPos, circle.radius);
+			ChangeColour(circle.red, circle.blue, circle.green, 255);
+			circle.xPos += circle.xDir;
+			circle.yPos += circle.yDir;
 
-			if (circleData[i].xPos > gScreenWidth - (circleData[i].radius * 2) || circleData[i].xPos < 0)
+			if (circle.xPos > gScreenWidth - (circle.radius * 2) || circle.xPos < 0)
 			{
-				circleData[i].xDir = -circleData[i].xDir;
+				circle.xDir = -circle.xDir;
 			}
 
-			if (circleData[i].yPos > gScreenHeight - (circleData[i].radius * 2) || circleData[i].yPos < 0)
+			if (circle.yPos > gScreenHeight - (circle.radius * 2) || circle.yPos < 0)
 			{
-				circleData[i].yDir = -circleData[i].yDir;
+				circle.yDir = -circle.yDir;
 			}
 
 			srand(time(0));
@@ -81,8 +84,8 @@ int main()
 
 			if (changeDirChance == 0)
 			{
-				circleData[i].xDir = -circleData[i].xDir;
-				circleData[i].yDir = -circleData[i].yDir;
+				circle.xDir = -circle.xDir;
+				circle.yDir = -circle.yDir;
 			}
 		}
 	}
