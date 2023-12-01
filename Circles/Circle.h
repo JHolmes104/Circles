@@ -1,3 +1,5 @@
+#include"Vector2.h"
+
 #pragma once
 
 class Circle
@@ -6,9 +8,8 @@ public:
 	Circle();
 	Circle(int redInput, int greenInput, int blueInput);
 
-
-	int xPos;
-	int yPos;
+	Vector2 pos;
+	Vector2 dir;
 
 	int getRed();
 	int getGreen();
@@ -20,10 +21,6 @@ public:
 	void draw();
 	void update();
 private:
-
-	int xDir;
-	int yDir;
-
 	int radius;
 
 	int red;

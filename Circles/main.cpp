@@ -6,6 +6,7 @@
 #include "Framework.h"
 #include <vector>
 #include "Circle.h"
+#include "Vector2.h"
 
 // Variables with global scope - do not rename them, feel free to change values though
 
@@ -50,7 +51,7 @@ int main()
 			if (rightClickHold == false)
 			{
 				Circle circle = Circle();
-				GetMousePosition(circle.xPos, circle.yPos);
+				GetMousePosition(circle.pos.x, circle.pos.y);
 				circleData.push_back(circle);
 			}
 			rightClickHold = true;
