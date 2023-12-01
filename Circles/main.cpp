@@ -40,29 +40,9 @@ int main()
 		for (Circle &circle: circleData)
 		{
 			// Draws a circle at 100,200 with radius 20
-			DrawCircle(circle.xPos, circle.yPos, circle.radius);
-			ChangeColour(circle.getRed(), circle.getGreen(), circle.getBlue(), circle.getAlpha());
-			circle.xPos += circle.xDir;
-			circle.yPos += circle.yDir;
-
-			if (circle.xPos > gScreenWidth - (circle.radius * 2) || circle.xPos < 0)
-			{
-				circle.xDir = -circle.xDir;
-			}
-
-			if (circle.yPos > gScreenHeight - (circle.radius * 2) || circle.yPos < 0)
-			{
-				circle.yDir = -circle.yDir;
-			}
-
-			srand(time(0));
-			int changeDirChance = rand() % 100;
-
-			if (changeDirChance == 0)
-			{
-				circle.xDir = -circle.xDir;
-				circle.yDir = -circle.yDir;
-			}
+			circle.draw();
+			
+			circle.update();
 		}
 
 		if (IsButtonPressed(EButton::eRight))
