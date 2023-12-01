@@ -1,4 +1,5 @@
 #pragma once
+
 class Circle
 {
 public:
@@ -14,11 +15,11 @@ public:
 	int getBlue();
 	int getAlpha();
 
+	void randomiseColour();
+	
 	void draw();
 	void update();
 private:
-	int xPos;
-	int yPos;
 
 	int xDir;
 	int yDir;

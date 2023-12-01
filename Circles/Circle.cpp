@@ -13,10 +13,8 @@ Circle::Circle()
 	xDir = rand() % 7 + 1;
 	yDir = rand() % 7 + 1;
 
-	red = 255;
-	green = 0;
-	blue = 0;
 	alpha = 255;
+	randomiseColour();
 }
 
 Circle::Circle(int redInput, int greenInput, int blueInput)
@@ -42,6 +40,13 @@ int Circle::getGreen() { return green; }
 int Circle::getBlue() { return blue; }
 
 int Circle::getAlpha() { return alpha; }
+
+void Circle::randomiseColour()
+{
+	red = rand() % 256;
+	green = rand() % 256;
+	blue = rand() % 256;
+}
 
 void Circle::draw()
 {
