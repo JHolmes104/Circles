@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Framework.h"
 #include <vector>
+#include "Circle.h"
 
 // Variables with global scope - do not rename them, feel free to change values though
 
@@ -15,54 +16,32 @@ int gScreenHeight{600};
 // Delay to slow things down
 int gTimeDelayMS{10};
 
+bool rightClickHold = false;
+
 using namespace std;
 
 int main()
 {
 	cout << "Hello circles" << endl;
 
-	struct Circles
-	{
-		int xPos;
-		int yPos;
-		int xDir;
-		int yDir;
-		int red;
-		int blue;
-		int green;
-		int radius;
-	};
+	
 
 	srand(time(0));
-	vector<Circles> circleData;
+	vector<Circle> circleData;
 	for (int i = 0; i < 50; i++)
 	{
-		Circles tempCircle;
-		//Radius.
-		tempCircle.radius = rand() % 30 + 11;
-		//Position.
-		tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
-		tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
-
-		//Speed control.
-		tempCircle.xDir = rand() % 7 + 1;
-		tempCircle.yDir = rand() % 7 + 1;
-
-		//Colour values.
-		tempCircle.red = rand() % 256;
-		tempCircle.blue = rand() % 256;
-		tempCircle.green = rand() % 256;
+		Circle tempCircle = Circle();
 		circleData.push_back(tempCircle);
 	}
 	srand(time(0));
 	while(UpdateFramework())
 	{
 		srand(time(0));
-		for (Circles &circle: circleData)
+		for (Circle &circle: circleData)
 		{
 			// Draws a circle at 100,200 with radius 20
 			DrawCircle(circle.xPos, circle.yPos, circle.radius);
-			ChangeColour(circle.red, circle.blue, circle.green, 255);
+			ChangeColour(circle.getRed(), circle.getGreen(), circle.getBlue(), circle.getAlpha());
 			circle.xPos += circle.xDir;
 			circle.yPos += circle.yDir;
 
@@ -84,6 +63,21 @@ int main()
 				circle.xDir = -circle.xDir;
 				circle.yDir = -circle.yDir;
 			}
+		}
+
+		if (IsButtonPressed(EButton::eRight))
+		{
+			if (rightClickHold == false)
+			{
+				Circle circle = Circle();
+				GetMousePosition(circle.xPos, circle.yPos);
+				circleData.push_back(circle);
+			}
+			rightClickHold = true;
+		}
+		else
+		{
+			rightClickHold = false;
 		}
 	}
 
