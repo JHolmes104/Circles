@@ -25,8 +25,6 @@ int main()
 {
 	cout << "Hello circles" << endl;
 
-	
-
 	srand(time(0));
 	vector<Circle> circleData;
 	for (int i = 0; i < 50; i++)
@@ -39,7 +37,7 @@ int main()
 	{
 		int newCircleNum = 0;
 
-		srand(time(0));
+		//srand(time(0));
 		for (Circle &circle: circleData)
 		{
 			// Draws a circle at 100,200 with radius 20
