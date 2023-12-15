@@ -13,7 +13,7 @@ Circle::Circle()
 	pos.x = rand() % (gScreenWidth - (radius * 2));
 	pos.y = rand() % (gScreenHeight - (radius * 2));
 	
-	dir = Vector2(rand() % 7 + 1, rand() % 7 + 1);
+	dir = Vector2(rand() % 16 - 8, rand() % 16 - 8);
 
 	alpha = 255;
 	randomiseColour();
