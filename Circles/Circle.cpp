@@ -17,6 +17,8 @@ Circle::Circle()
 
 	alpha = 255;
 	randomiseColour();
+
+	bouncedThisFrame = false;
 }
 
 Circle::Circle(int redInput, int greenInput, int blueInput)
@@ -34,6 +36,8 @@ Circle::Circle(int redInput, int greenInput, int blueInput)
 	green = greenInput;
 	blue = blueInput;
 	alpha = 255;
+
+	bouncedThisFrame = false;
 }
 
 int Circle::getRed(){ return red; }
@@ -59,6 +63,7 @@ void Circle::draw()
 
 void Circle::update()
 {
+	bouncedThisFrame = false;
 	ChangeColour(red, green, blue, alpha);
 	pos.x += dir.x;
 	pos.y += dir.y;
@@ -66,11 +71,13 @@ void Circle::update()
 	if (pos.x > gScreenWidth - (radius * 2) || pos.x < 0)
 	{
 		dir.x = -dir.x;
+		bouncedThisFrame = true;
 	}
 
 	if (pos.y > gScreenHeight - (radius * 2) || pos.y < 0)
 	{
 		dir.y = -dir.y;
+		bouncedThisFrame = true;
 	}
 
 	srand(time(0));

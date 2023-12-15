@@ -34,9 +34,11 @@ int main()
 		Circle tempCircle = Circle();
 		circleData.push_back(tempCircle);
 	}
-	srand(time(0));
+
 	while(UpdateFramework())
 	{
+		int newCircleNum = 0;
+
 		srand(time(0));
 		for (Circle &circle: circleData)
 		{
@@ -44,6 +46,11 @@ int main()
 			circle.draw();
 			
 			circle.update();
+
+			if (circle.bouncedThisFrame == true)
+			{
+				newCircleNum++;
+			}
 		}
 
 		if (IsButtonPressed(EButton::eRight))
@@ -59,6 +66,12 @@ int main()
 		else
 		{
 			rightClickHold = false;
+		}
+
+		for (int i = 0; i < newCircleNum; i++)
+		{
+			Circle tempCircle = Circle();
+			circleData.push_back(tempCircle);
 		}
 	}
 

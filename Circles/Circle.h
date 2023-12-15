@@ -11,6 +11,8 @@ public:
 	Vector2 pos;
 	Vector2 dir;
 
+	bool bouncedThisFrame;
+
 	int getRed();
 	int getGreen();
 	int getBlue();
