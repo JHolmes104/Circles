@@ -8,6 +8,8 @@ public:
 	Circle();
 	Circle(int redInput, int greenInput, int blueInput);
 
+	~Circle();
+
 	Vector2 pos;
 	Vector2 dir;
 

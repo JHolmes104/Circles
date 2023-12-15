@@ -40,6 +40,8 @@ Circle::Circle(int redInput, int greenInput, int blueInput)
 	bouncedThisFrame = false;
 }
 
+Circle::~Circle() {};
+
 int Circle::getRed(){ return red; }
 
 int Circle::getGreen() { return green; }
