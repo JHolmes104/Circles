@@ -6,6 +6,7 @@
 
 Circle::Circle()
 {
+	//Randomise properties.
 	radius = rand() % 30 + 11;
 
 	pos = Vector2();
@@ -66,10 +67,13 @@ void Circle::draw()
 void Circle::update()
 {
 	bouncedThisFrame = false;
+
+	//Set colour
 	ChangeColour(red, green, blue, alpha);
 	pos.x += dir.x;
 	pos.y += dir.y;
 
+	//Collision Detection
 	if (pos.x > gScreenWidth - (radius * 2) || pos.x < 0)
 	{
 		dir.x = -dir.x;
@@ -82,6 +86,7 @@ void Circle::update()
 		bouncedThisFrame = true;
 	}
 
+	//1% Chance of reversing direction
 	srand(time(0));
 	int changeDirChance = rand() % 100;
 

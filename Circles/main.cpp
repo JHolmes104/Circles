@@ -25,7 +25,10 @@ int main()
 {
 	cout << "Hello circles" << endl;
 
+	//Randomise seed
 	srand(time(NULL));
+
+	//Create vector for circles
 	vector<Circle> circleData;
 	for (int i = 0; i < 50; i++)
 	{
@@ -40,17 +43,20 @@ int main()
 
 		for (Circle &circle: circleData)
 		{
-			// Draws a circle at 100,200 with radius 20
+			// Draws a circle at its current location
 			circle.draw();
 			
+			//Change circle's location
 			circle.update();
 
+			//Collision detection.
 			if (circle.bouncedThisFrame == true)
 			{
 				newCircleNum++;
 			}
 		}
 
+		//Check for user inputs to spawn in a new circle.
 		if (IsButtonPressed(EButton::eRight))
 		{
 			if (rightClickHold == false)
@@ -61,11 +67,13 @@ int main()
 			}
 			rightClickHold = true;
 		}
+		//Prevent multiple circles spawning.
 		else
 		{
 			rightClickHold = false;
 		}
 
+		//Spawn the correct number of circles depending on the number of collisions.
 		for (int i = 0; i < newCircleNum; i++)
 		{
 			Circle tempCircle = Circle();
