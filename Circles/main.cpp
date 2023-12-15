@@ -56,6 +56,7 @@ int main()
 	srand(time(0));
 	while(UpdateFramework())
 	{
+		int newCircleCount = 0;
 		srand(time(0));
 		for (Circles &circle: circleData)
 		{
@@ -68,45 +69,15 @@ int main()
 			if (circle.xPos > gScreenWidth - (circle.radius * 2) || circle.xPos < 0)
 			{
 				circle.xDir = -circle.xDir;
-
-				Circles tempCircle;
-				//Radius.
-				tempCircle.radius = rand() % 30 + 11;
-				//Position.
-				tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
-				tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
-
-				//Speed control.
-				tempCircle.xDir = rand() % 7 + 1;
-				tempCircle.yDir = rand() % 7 + 1;
-
-				//Colour values.
-				tempCircle.red = rand() % 256;
-				tempCircle.blue = rand() % 256;
-				tempCircle.green = rand() % 256;
-				circleData.push_back(tempCircle);
+				
+				newCircleCount++;
 			}
 
 			if (circle.yPos > gScreenHeight - (circle.radius * 2) || circle.yPos < 0)
 			{
 				circle.yDir = -circle.yDir;
 
-				Circles tempCircle;
-				//Radius.
-				tempCircle.radius = rand() % 30 + 11;
-				//Position.
-				tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
-				tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
-
-				//Speed control.
-				tempCircle.xDir = rand() % 7 + 1;
-				tempCircle.yDir = rand() % 7 + 1;
-
-				//Colour values.
-				tempCircle.red = rand() % 256;
-				tempCircle.blue = rand() % 256;
-				tempCircle.green = rand() % 256;
-				circleData.push_back(tempCircle);
+				newCircleCount++;
 			}
 
 			srand(time(0));
@@ -117,6 +88,28 @@ int main()
 				circle.xDir = -circle.xDir;
 				circle.yDir = -circle.yDir;
 			}
+
+		}
+
+		for (int i = 0; i < newCircleCount; i++)
+		{
+			Circles tempCircle;
+			//Radius.
+			tempCircle.radius = rand() % 30 + 11;
+			//Position.
+			tempCircle.xPos = rand() % (gScreenWidth - (tempCircle.radius * 2));
+			tempCircle.yPos = rand() % (gScreenHeight - (tempCircle.radius * 2));
+
+			//Speed control.
+			tempCircle.xDir = rand() % 7 + 1;
+			tempCircle.yDir = rand() % 7 + 1;
+
+			//Colour values.
+			tempCircle.red = rand() % 256;
+			tempCircle.blue = rand() % 256;
+			tempCircle.green = rand() % 256;
+
+			circleData.push_back(tempCircle);
 		}
 	}
 
