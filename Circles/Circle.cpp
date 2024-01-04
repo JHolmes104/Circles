@@ -41,6 +41,8 @@ Circle::Circle(int redInput, int greenInput, int blueInput)
 	bouncedThisFrame = false;
 }
 
+//Destructors and getters
+
 Circle::~Circle() {};
 
 int Circle::getRed(){ return red; }
